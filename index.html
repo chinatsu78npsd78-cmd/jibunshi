@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>わたしものがたり</title>
+  <meta name="description" content="話すように、ぽつぽつと。あなたの自分史をやさしく振り返るノート。" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+
+    <!-- ようこそ -->
+    <section id="screen-welcome" class="screen">
+      <div class="card center">
+        <div class="leaf">🌱</div>
+        <h1>わたしものがたり</h1>
+        <p class="subtitle">話すように、ぽつぽつと。</p>
+        <p class="lead">
+          うまく書こうとしなくて大丈夫。<br />
+          思いついたことを、ひとことずつ残していけば、<br />
+          あなたの「自分史」がそっとできあがります。
+        </p>
+        <ul class="reassure">
+          <li>正解はありません。思い出せないところは「パス」でとばせます。</li>
+          <li>書いた内容は、あなたのスマホの中だけに残ります。</li>
+          <li>途中でやめても大丈夫。次にひらけば続きからできます。</li>
+          <li>しんどくなったら、いつでも閉じてくださいね。</li>
+        </ul>
+        <button id="btn-start" class="btn btn-primary">はじめる</button>
+        <button id="btn-resume" class="btn btn-ghost hidden">つづきから</button>
+      </div>
+    </section>
+
+    <!-- 年齢 -->
+    <section id="screen-age" class="screen hidden">
+      <div class="card center">
+        <h2>はじめる前に、ひとつだけ</h2>
+        <p class="lead">
+          今、おいくつくらいですか？<br />
+          <span class="small">その年齢までの時期だけを、順番に聞かせてもらいます。</span>
+        </p>
+        <div class="age-input">
+          <input id="input-age" type="number" inputmode="numeric" min="1" max="120" placeholder="例：44" />
+          <span class="age-unit">さい</span>
+        </div>
+        <button id="btn-age-next" class="btn btn-primary">この年齢ではじめる</button>
+        <button id="btn-age-skip" class="btn btn-ghost">ぜんぶの時期をふりかえる</button>
+      </div>
+    </section>
+
+    <!-- 質問 -->
+    <section id="screen-chapter" class="screen hidden">
+      <div class="progress-wrap">
+        <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+        <div id="progress-text" class="progress-text"></div>
+      </div>
+
+      <div class="card">
+        <div id="ack" class="ack hidden"></div>
+        <div id="era-label" class="era-label"></div>
+        <h2 id="question-text" class="question"></h2>
+        <p id="question-hint" class="hint hidden"></p>
+        <textarea id="answer" rows="5" placeholder="思いついたまま、ひとことでも大丈夫…"></textarea>
+        <div class="btn-row">
+          <button id="btn-pass" class="btn btn-ghost">パス</button>
+          <button id="btn-next" class="btn btn-primary">つぎへ</button>
+        </div>
+        <button id="btn-pause" class="btn btn-text">いったん保存してとじる</button>
+      </div>
+    </section>
+
+    <!-- おわり -->
+    <section id="screen-done" class="screen hidden">
+      <div class="card">
+        <div class="leaf">🍀</div>
+        <h2 class="center">今日、ふりかえってくれてありがとう。</h2>
+        <p class="lead center">
+          あなたが残してくれた「ものがたり」です。<br />
+          このまま保存して、なつこに送ってもらえたら嬉しいです。
+        </p>
+
+        <div class="summary-box">
+          <pre id="summary-text"></pre>
+        </div>
+
+        <button id="btn-copy" class="btn btn-primary">コピーする</button>
+        <p id="copy-done" class="copy-done hidden">コピーしました。LINEやメールに貼りつけて送れます 🌱</p>
+
+        <div class="send-guide">
+          <p class="small">
+            <b>送り方</b>：上の「コピーする」を押して、なつこへのLINE（またはメール）に貼りつけて送ってください。<br />
+            スマホの画面を写真（スクショ）に撮って送ってもOKです。
+          </p>
+        </div>
+
+        <button id="btn-review" class="btn btn-ghost">もういちど見直す</button>
+      </div>
+    </section>
+
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

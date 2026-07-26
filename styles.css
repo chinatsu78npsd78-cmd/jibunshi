@@ -1,0 +1,232 @@
+:root {
+  --bg: #faf6f0;
+  --card: #ffffff;
+  --ink: #4a4038;
+  --ink-soft: #8a7d70;
+  --accent: #cf8a86;      /* やわらかいローズ */
+  --accent-deep: #b96e6a;
+  --leaf: #8fb08a;        /* やわらかい緑 */
+  --line: #ece3d8;
+  --shadow: 0 8px 30px rgba(120, 100, 80, 0.10);
+  --radius: 20px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans", "Noto Sans JP", "Meiryo", sans-serif;
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 24px 18px 64px;
+  min-height: 100vh;
+}
+
+.screen { animation: fade 0.4s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+.hidden { display: none !important; }
+.center { text-align: center; }
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 30px 24px;
+  border: 1px solid var(--line);
+}
+
+.leaf { font-size: 40px; margin-bottom: 6px; }
+
+h1 {
+  font-size: 30px;
+  margin: 4px 0 2px;
+  letter-spacing: 0.04em;
+}
+.subtitle {
+  color: var(--accent-deep);
+  font-size: 15px;
+  margin: 0 0 20px;
+  letter-spacing: 0.08em;
+}
+h2 {
+  font-size: 21px;
+  margin: 4px 0 14px;
+  line-height: 1.6;
+}
+
+.lead {
+  color: var(--ink);
+  font-size: 16px;
+  margin: 0 0 20px;
+}
+.small { font-size: 13.5px; color: var(--ink-soft); }
+
+.reassure {
+  text-align: left;
+  background: #f7f1e9;
+  border-radius: 14px;
+  padding: 16px 18px 16px 34px;
+  margin: 0 0 24px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+.reassure li { margin: 6px 0; }
+
+/* ボタン */
+.btn {
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  padding: 16px 20px;
+  font-size: 17px;
+  font-family: inherit;
+  cursor: pointer;
+  margin: 10px 0 0;
+  transition: transform 0.08s ease, background 0.2s ease, opacity 0.2s ease;
+}
+.btn:active { transform: scale(0.98); }
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 6px 16px rgba(207, 138, 134, 0.35);
+}
+.btn-primary:hover { background: var(--accent-deep); }
+.btn-ghost {
+  background: transparent;
+  color: var(--accent-deep);
+  border: 1.5px solid var(--accent);
+}
+.btn-ghost:hover { background: #fbeeed; }
+.btn-text {
+  background: none;
+  color: var(--ink-soft);
+  font-size: 14px;
+  text-decoration: underline;
+  padding: 14px;
+}
+
+/* 年齢入力 */
+.age-input {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 10px;
+  margin: 18px 0 24px;
+}
+#input-age {
+  width: 130px;
+  font-size: 30px;
+  text-align: center;
+  padding: 10px 8px;
+  border: none;
+  border-bottom: 2.5px solid var(--accent);
+  background: transparent;
+  color: var(--ink);
+  font-family: inherit;
+}
+#input-age:focus { outline: none; border-color: var(--accent-deep); }
+.age-unit { font-size: 18px; color: var(--ink-soft); }
+
+/* 進み具合 */
+.progress-wrap { margin: 6px 4px 18px; }
+.progress-bar {
+  height: 9px;
+  background: #ece3d8;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--leaf), var(--accent));
+  border-radius: 999px;
+  transition: width 0.5s ease;
+}
+.progress-text {
+  text-align: right;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin-top: 6px;
+}
+
+/* 質問 */
+.ack {
+  background: #eef4ec;
+  color: #5f7a5a;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 14px;
+  margin-bottom: 16px;
+  animation: fade 0.4s ease;
+}
+.era-label {
+  display: inline-block;
+  background: #f7f1e9;
+  color: var(--accent-deep);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+.question { font-size: 20px; line-height: 1.65; margin: 2px 0 8px; }
+.hint { font-size: 14px; color: var(--ink-soft); margin: 0 0 14px; }
+
+textarea {
+  width: 100%;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  font-size: 16px;
+  font-family: inherit;
+  line-height: 1.8;
+  color: var(--ink);
+  background: #fffdfb;
+  resize: vertical;
+}
+textarea:focus { outline: none; border-color: var(--accent); }
+
+.btn-row { display: flex; gap: 12px; margin-top: 16px; }
+.btn-row .btn { margin-top: 0; }
+.btn-row .btn-ghost { flex: 0 0 34%; }
+.btn-row .btn-primary { flex: 1; }
+
+/* まとめ */
+.summary-box {
+  background: #f7f1e9;
+  border-radius: 14px;
+  padding: 8px 6px;
+  margin: 20px 0;
+  max-height: 46vh;
+  overflow-y: auto;
+}
+#summary-text {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  margin: 0;
+  padding: 8px 12px;
+  line-height: 1.9;
+}
+.copy-done { color: var(--leaf); font-size: 14px; text-align: center; margin: 8px 0 0; }
+.send-guide {
+  background: #eef4ec;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin: 20px 0 10px;
+}
+.send-guide .small { color: #5f7a5a; }
