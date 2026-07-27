@@ -162,6 +162,16 @@ h2 {
 }
 
 /* 質問 */
+.btn-back {
+  background: none;
+  border: none;
+  color: var(--ink-soft);
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0 0 12px;
+}
+.btn-back:hover { color: var(--accent-deep); }
 .ack {
   background: #eef4ec;
   color: #5f7a5a;

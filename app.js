@@ -89,6 +89,12 @@ function renderQuestion() {
   const doneCount = state.bi * WINDOWS.length + state.wi;
   const pct = Math.round((doneCount / total) * 100);
   document.getElementById("progress-fill").style.width = pct + "%";
+
+  // 「もどる」は最初の質問以外で表示（前に戻って書き足せる）
+  const backEl = document.getElementById("btn-back");
+  if (doneCount > 0) { backEl.classList.remove("hidden"); }
+  else { backEl.classList.add("hidden"); }
+
   document.getElementById("progress-text").textContent =
     `${doneCount + 1} / ${total}`;
 
@@ -150,6 +156,18 @@ function advance(withAck) {
   } else {
     renderQuestion();
   }
+}
+
+// ------- 前の質問へ戻る（書き足し・修正できる）-------
+function goBack() {
+  // いま入力中の内容を先に保存してから戻る
+  recordAnswer(document.getElementById("answer").value.trim());
+  if (state.bi === 0 && state.wi === 0) return; // 最初の質問なら何もしない
+  state.wi--;
+  if (state.wi < 0) { state.bi--; state.wi = WINDOWS.length - 1; }
+  pendingAck = "";
+  save();
+  renderQuestion();
 }
 
 // ------- まとめ生成（本人にお返しする版）-------
@@ -221,6 +239,8 @@ document.addEventListener("DOMContentLoaded", () => {
     recordAnswer("");
     advance(false);
   });
+
+  document.getElementById("btn-back").addEventListener("click", goBack);
 
   document.getElementById("btn-pause").addEventListener("click", () => {
     save();
