@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>お菓子に込める想い｜ちい's工房</title>
+<meta property="og:title" content="お菓子に込める想い｜ちい's工房">
+<meta property="og:description" content="いつも頑張りすぎてしまうあなたへ。私がお菓子を作る理由をお話しさせてください。">
+<meta name="theme-color" content="#f6efe2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f7efdf;
+    --paper-2:#efe3cd;
+    --ink:#4a3a28;
+    --gold:#b08d57;
+    --gold-soft:#d9c199;
+    --shadow:rgba(120,95,60,.28);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0;overflow-x:hidden}
+  body{
+    min-height:100svh;
+    background:radial-gradient(120% 80% at 50% 0%, #fdf8ee 0%, #f3e8d3 55%, #ead9bd 100%);
+    color:var(--ink);
+    font-family:"Zen Old Mincho","Yu Mincho","YuMincho","Hiragino Mincho ProN",serif;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:14px 10px 18px;
+    overflow-x:hidden;
+  }
+
+  .head{text-align:center;margin-bottom:10px}
+  .head h1{font-size:clamp(15px,4.2vw,20px);font-weight:600;margin:0;letter-spacing:.08em}
+  .head p{margin:4px 0 0;font-size:clamp(11px,3vw,13px);color:#8a7351;letter-spacing:.06em}
+
+  /* ===== 本 ===== */
+  .stage{
+    position:relative;
+    width:min(94vw,720px);
+    aspect-ratio:1512/1008;   /* 画像の比率（3:2） */
+    perspective:1800px;
+    margin:6px auto 0;
+  }
+  /* 本の下に敷く紙の束（厚みの演出） */
+  .stage::before{
+    content:"";position:absolute;inset:0;border-radius:8px;
+    background:var(--paper-2);
+    box-shadow:0 10px 26px var(--shadow), 0 2px 0 #e3d3b6, 0 4px 0 #dccaa9, 0 6px 0 #d5c19d;
+    transform:translateY(3px);
+  }
+
+  .page{
+    position:absolute;inset:0;
+    transform-origin:left center;
+    transform-style:preserve-3d;
+    transition:transform .78s cubic-bezier(.62,.03,.35,1);
+    border-radius:8px;
+    will-change:transform;
+  }
+  .page.flipped{transform:rotateY(-180deg)}
+  .face{
+    position:absolute;inset:0;
+    backface-visibility:hidden;-webkit-backface-visibility:hidden;
+    border-radius:8px;overflow:hidden;
+    background:var(--paper);
+    box-shadow:0 6px 18px var(--shadow);
+  }
+  .face img{width:100%;height:100%;object-fit:contain;display:block;background:var(--paper)}
+  /* ページの背面（めくった時に見える紙の裏） */
+  .face.back{
+    transform:rotateY(180deg);
+    background:linear-gradient(90deg, rgba(0,0,0,.10), rgba(0,0,0,0) 22%), var(--paper-2);
+  }
+  /* 綴じ側の影 */
+  .face.front::after{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:26px;
+    background:linear-gradient(90deg, rgba(120,95,60,.20), rgba(120,95,60,0));
+    pointer-events:none;
+  }
+
+  /* 画像がまだ無いときの案内 */
+  .placeholder{
+    position:absolute;inset:0;display:none;
+    align-items:center;justify-content:center;text-align:center;
+    padding:8%;font-size:clamp(11px,2.8vw,14px);line-height:1.9;color:#a08a66;
+    background:var(--paper);
+  }
+  .face.missing .placeholder{display:flex}
+  .face.missing img{display:none}
+
+  /* おわりのページ */
+  .end{
+    position:absolute;inset:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:14px;text-align:center;
+    background:var(--paper);padding:6%;
+  }
+  .end .mark{font-size:clamp(18px,5vw,26px);letter-spacing:.3em;color:var(--gold)}
+  .end .msg{font-size:clamp(12px,3.2vw,16px);line-height:2;color:#6d5940}
+  .links{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:4px}
+  .links a{
+    display:inline-block;padding:10px 20px;border-radius:999px;
+    border:1px solid var(--gold-soft);color:#7a6242;text-decoration:none;
+    font-size:clamp(11px,3vw,14px);background:#fffaf0;letter-spacing:.05em;
+  }
+  .links a:active{background:#f5ead6}
+
+  /* ===== 操作 ===== */
+  .controls{
+    display:flex;align-items:center;justify-content:center;gap:14px;
+    margin-top:16px;width:min(94vw,720px);
+  }
+  button.nav{
+    font-family:inherit;font-size:clamp(13px,3.4vw,15px);letter-spacing:.08em;
+    padding:12px 22px;border-radius:999px;cursor:pointer;
+    border:1px solid var(--gold-soft);
+    background:linear-gradient(#fffdf7,#f5ead6);
+    color:#6d5940;
+    box-shadow:0 2px 6px rgba(150,120,80,.18);
+    transition:transform .15s ease, opacity .2s ease;
+    min-width:104px;
+  }
+  button.nav:active{transform:translateY(1px)}
+  button.nav:disabled{opacity:.32;cursor:default;box-shadow:none}
+
+  .counter{font-size:clamp(11px,3vw,13px);color:#8a7351;letter-spacing:.12em;min-width:52px;text-align:center}
+
+  .dots{display:flex;gap:7px;justify-content:center;margin-top:12px}
+  .dots i{
+    width:7px;height:7px;border-radius:50%;background:var(--gold-soft);opacity:.45;
+    display:block;transition:opacity .25s ease, transform .25s ease;cursor:pointer;
+  }
+  .dots i.on{opacity:1;transform:scale(1.35)}
+
+  .hint{margin-top:12px;font-size:11px;color:#a08a66;letter-spacing:.08em;text-align:center}
+
+  @media (max-width:480px){
+    .controls{gap:8px}
+    button.nav{padding:11px 16px;min-width:88px}
+  }
+</style>
+</head>
+<body>
+
+<div class="head">
+  <h1>お菓子に込める想い</h1>
+  <p>ちい's 工房</p>
+</div>
+
+<div class="stage" id="stage"></div>
+
+<div class="controls">
+  <button class="nav" id="prev">◀ もどる</button>
+  <span class="counter" id="counter">1 / 8</span>
+  <button class="nav" id="next">すすむ ▶</button>
+</div>
+
+<div class="dots" id="dots"></div>
+<p class="hint">画面を左右にスワイプしてもめくれます</p>
+
+<script>
+/* =========================================================
+   ページの設定
+   画像は同じフォルダの images/ の中に
+   01.png 〜 07.png という名前で入れてください。
+   （.jpg にしたい場合は下の EXT を "jpg" に変えてください）
+   ========================================================= */
+const TOTAL = 7;           // 画像の枚数
+const EXTS  = ["webp","png","jpg","jpeg"]; // この順に自動で探します
+const HAS_END_PAGE = true; // 最後に「おわり」のページを付けるか
+
+/* 最後のページのボタン。url を入れたものだけ表示されます（空のままなら出ません） */
+const LINKS = [
+  { label: "Instagram を見る", url: "" },
+  { label: "お菓子を見る",     url: "" }
+];
+
+const stage = document.getElementById('stage');
+const pages = [];
+const pageCount = TOTAL + (HAS_END_PAGE ? 1 : 0);
+
+for(let i = 0; i < pageCount; i++){
+  const page = document.createElement('div');
+  page.className = 'page';
+
+  const front = document.createElement('div');
+  front.className = 'face front';
+
+  if(i < TOTAL){
+    const num = String(i+1).padStart(2,'0');
+    const img = document.createElement('img');
+    img.alt = (i+1) + 'ページ目';
+    img.loading = i < 2 ? 'eager' : 'lazy';
+
+    /* webp → png → jpg → jpeg の順に、見つかるまで試します */
+    let tryIndex = 0;
+    img.onerror = function(){
+      tryIndex++;
+      if(tryIndex < EXTS.length){
+        img.src = 'images/' + num + '.' + EXTS[tryIndex];
+      }else{
+        front.classList.add('missing');
+      }
+    };
+    img.src = 'images/' + num + '.' + EXTS[0];
+    front.appendChild(img);
+
+    const ph = document.createElement('div');
+    ph.className = 'placeholder';
+    ph.innerHTML = num + ' の画像が見つかりません<br>images フォルダに ' + num + '.webp（または .png / .jpg）を入れてください';
+    front.appendChild(ph);
+  }else{
+    const btns = LINKS.filter(function(l){ return l.url; }).map(function(l){
+      return '<a href="' + l.url + '" target="_blank" rel="noopener">' + l.label + '</a>';
+    }).join('');
+    front.innerHTML =
+      '<div class="end">' +
+        '<div class="mark">お わ り</div>' +
+        '<div class="msg">最後まで読んでくださって<br>ありがとうございます。<br>今日もよく頑張りましたね。</div>' +
+        (btns ? '<div class="links">' + btns + '</div>' : '') +
+      '</div>';
+  }
+
+  const back = document.createElement('div');
+  back.className = 'face back';
+
+  page.appendChild(front);
+  page.appendChild(back);
+  page.style.zIndex = pageCount * 2 - i;
+  stage.appendChild(page);
+  pages.push(page);
+}
+
+let current = 0;
+const prevBtn = document.getElementById('prev');
+const nextBtn = document.getElementById('next');
+const counter = document.getElementById('counter');
+const dotsBox = document.getElementById('dots');
+
+for(let i = 0; i < pageCount; i++){
+  const d = document.createElement('i');
+  d.addEventListener('click', function(){ goTo(i); });
+  dotsBox.appendChild(d);
+}
+const dots = Array.prototype.slice.call(dotsBox.children);
+
+function render(){
+  pages.forEach(function(p, i){
+    const flipped = i < current;
+    p.classList.toggle('flipped', flipped);
+    p.style.zIndex = flipped ? i : pageCount * 2 - i;
+  });
+  counter.textContent = (current + 1) + ' / ' + pageCount;
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === pageCount - 1;
+  dots.forEach(function(d, i){ d.classList.toggle('on', i === current); });
+}
+
+function goTo(n){
+  current = Math.max(0, Math.min(pageCount - 1, n));
+  render();
+}
+function next(){ goTo(current + 1); }
+function prev(){ goTo(current - 1); }
+
+nextBtn.addEventListener('click', next);
+prevBtn.addEventListener('click', prev);
+
+/* キーボード（パソコン用） */
+document.addEventListener('keydown', function(e){
+  if(e.key === 'ArrowRight' || e.key === ' ') next();
+  if(e.key === 'ArrowLeft') prev();
+});
+
+/* スワイプ（スマホ用） */
+let sx = 0, sy = 0, tracking = false;
+stage.addEventListener('touchstart', function(e){
+  sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+}, {passive:true});
+stage.addEventListener('touchend', function(e){
+  if(!tracking) return;
+  tracking = false;
+  const dx = e.changedTouches[0].clientX - sx;
+  const dy = e.changedTouches[0].clientY - sy;
+  if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)){
+    if(dx < 0){ next(); } else { prev(); }
+  }
+}, {passive:true});
+
+/* ページをタップしてもめくれる（右半分＝すすむ／左半分＝もどる） */
+stage.addEventListener('click', function(e){
+  if(e.target.closest('a')) return;
+  const r = stage.getBoundingClientRect();
+  if((e.clientX - r.left) > r.width / 2){ next(); } else { prev(); }
+});
+
+render();
+</script>
+</body>
+</html>
