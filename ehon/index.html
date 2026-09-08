@@ -202,7 +202,8 @@ for(let i = 0; i < pageCount; i++){
         front.classList.add('missing');
       }
     };
-    img.src = 'images/' + num + '.' + EXTS[0];
+    const replacementImages = { '01': '01-20260908.png', '07': '07-20260908.png' };
+    img.src = 'images/' + (replacementImages[num] || num + '.' + EXTS[0]);
     front.appendChild(img);
 
     const ph = document.createElement('div');
