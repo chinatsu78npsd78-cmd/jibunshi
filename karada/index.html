@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>わたしのからだセルフチェック</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="progress"><i id="progress-bar"></i></div>
+
+<main>
+  <!-- STEP1 はじめに -->
+  <section class="screen" id="screen-top">
+    <p class="kicker">からだの声を聞く · セルフチェック</p>
+    <h1>わたしのからだ<br>セルフチェック</h1>
+    <p class="sub">今のあなたの身体の声、聞いてみませんか？</p>
+
+    <div class="day-card">
+      <div class="day-top"><span>今日のわたしに</span><span class="date"><b id="day-num"></b><small id="day-week"></small></span></div>
+      <div class="art leaves" data-seed="3" data-sleep="1"></div>
+      <p class="vertical">からだに<br>耳をすます</p>
+      <p class="day-foot">ひと呼吸、今のわたしを感じてみる</p>
+    </div>
+
+    <div class="card">
+      <p>あなたの身体は、今どんな時間を求めていますか？</p>
+      <p>疲れや冷え、眠り、ストレスのことをふり返りながら、今のあなたに合いそうなセルフケアを一緒に見つけていきます。</p>
+      <p>いい・わるいをつけるチェックではありません。ここ1か月くらいを思い出して、気軽に答えてね。</p>
+      <ol class="flow-list">
+        <li>からだのチェック（15問）</li>
+        <li>睡眠のチェック（8問）</li>
+        <li>今のわたしが大切にしたいこと</li>
+      </ol>
+      <p class="muted">3分くらい・何度でもチェックできます</p>
+    </div>
+    <button class="btn" id="btn-start">はじめる</button>
+    <p class="caption">生活をふり返るための、やさしいセルフチェック</p>
+    <p class="note">※このチェックは医学的な診断ではなく、生活習慣や自覚症状をふり返るためのセルフチェックです。つらい症状が強いときや長く続くときは、医療機関に相談してください。</p>
+  </section>
+
+  <!-- STEP2 体質チェック -->
+  <section class="screen" id="screen-body" hidden>
+    <p class="step-count">1 / 3</p>
+    <h2>からだのチェック</h2>
+    <p class="muted">最近の自分にいちばん近いものを選んでね。</p>
+    <ol class="q-list" id="body-list"></ol>
+    <div class="nav">
+      <button class="btn ghost" id="back-body">もどる</button>
+      <button class="btn" id="next-body">つぎへ</button>
+    </div>
+  </section>
+
+  <!-- STEP3 睡眠チェック -->
+  <section class="screen" id="screen-sleep" hidden>
+    <p class="step-count">2 / 3</p>
+    <h2>睡眠のチェック</h2>
+    <p class="muted">眠りについて、近いものを選んでね。</p>
+    <ol class="q-list" id="sleep-list"></ol>
+    <div class="nav">
+      <button class="btn ghost" id="back-sleep">もどる</button>
+      <button class="btn" id="next-sleep">つぎへ</button>
+    </div>
+  </section>
+
+  <!-- STEP4 求めていること -->
+  <section class="screen" id="screen-wish" hidden>
+    <p class="step-count">3 / 3</p>
+    <h2>今、あなたが一番<br>大切にしたいことは？</h2>
+    <p class="muted">いくつ選んでもOK。選ばなくても大丈夫です。</p>
+    <ul class="wish-list" id="wish-list"></ul>
+    <div class="nav">
+      <button class="btn ghost" id="back-wish">もどる</button>
+      <button class="btn" id="next-wish">結果をみる</button>
+    </div>
+  </section>
+
+  <!-- STEP5・6 結果と提案 -->
+  <section class="screen" id="screen-result" hidden>
+    <p class="eyebrow center">あなたのチェック結果</p>
+    <section class="type-head" id="r-type">
+      <div class="art leaves thin" data-seed="7"></div>
+      <p class="type-label">🌿 メインタイプ</p>
+      <h2 id="r-type-name"></h2>
+      <p id="r-type-catch"></p>
+      <div id="r-bars"></div>
+    </section>
+
+    <section class="card">
+      <h3>🌙 睡眠のこと</h3>
+      <p id="r-sleep"></p>
+    </section>
+
+    <p class="card message" id="r-message-balanced" hidden></p>
+    <div id="r-types"></div>
+
+    <section class="card">
+      <h3>おすすめのセルフケア</h3>
+      <ul class="care-list" id="r-care"></ul>
+    </section>
+
+    <section class="card soft">
+      <h3>まこさんからのご提案</h3>
+      <p>セルフケアにプラスして、もう少し自分をいたわる時間がほしいときに。気になるものがあれば、のぞいてみてね。</p>
+      <div id="r-links"></div>
+      <p class="note" id="r-disclosure"></p>
+    </section>
+
+    <section class="card">
+      <h3>今日のあなたにできそうなことを、<br>ひとつ選んでみませんか？</h3>
+      <div class="pick-list" id="r-pick"></div>
+      <p class="pick-done" id="r-pick-done" hidden>今日のひとつは「<span id="r-pick-text"></span>」。<br>できたら、それだけで十分です🌿</p>
+    </section>
+
+    <button class="btn ghost" id="btn-retry">もういちどチェックする</button>
+    <p class="note">※このチェックは医学的な診断ではありません。紹介している食材は東洋医学的な考え方を含む参考情報で、食事の制限をおすすめするものではありません。症状が強いときや長く続くときは、医療機関に相談してください。</p>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
